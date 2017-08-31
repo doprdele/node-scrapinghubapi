@@ -1,6 +1,8 @@
+/*jshint esversion: 6 */
+
 function ScrapingHub(apiKey, projectName) {
 
-    var request = require('request').defaults({
+    let request = require('request').defaults({
         auth: {
             user: apiKey,
             pass: '',
@@ -15,22 +17,18 @@ function ScrapingHub(apiKey, projectName) {
     const listJobsUrl = `${baseUrl}/jobs/list.json`;
     const listScheduleUrl = `${baseUrl}/v2/projects/${projectName}/periodicjobs`;
 
-    // Attributes can be any of the following
-    // { 
-    //   'job': JobId,
-    //   'spider': SpiderName
-    //   'state': ending || running || finished || deleted.
-    //   'has_tag': Tag
-    //   'lacks_tag': Tag  
-    // }
-
-    function _get(attributes = {}, url, callback) {
+    function _get(url, callback, attributes = {}) {
         let options = {
             url: url,
             qs: attributes
         };
 
         request(options, function listScheduleCallback(error, response, data) {
+            if (error) {
+                callback(error);
+                return;
+            }
+
             if (data.status == 'error') {
                 callback(new Error(data.message));
                 return;
@@ -43,15 +41,15 @@ function ScrapingHub(apiKey, projectName) {
 
             callback(null, data);
         });
-    };
+    }
 
-    function listJobs(attributes = {}, callback) {
-        return _get(attributes, listJobsUrl, callback);
-    };
+    function listJobs(callback, attributes = {}) {
+        return _get(listJobsUrl, callback, attributes);
+    }
 
-    function listSchedule(attributes, callback) {
-        return _get(attributes, listScheduleUrl, callback);
-    };
+    function listSchedule(callback, attributes = {}) {
+        return _get(listScheduleUrl, callback, attributes);
+    }
 
     let api = {
         jobs: {
@@ -67,7 +65,8 @@ function ScrapingHub(apiKey, projectName) {
     api._request = _request;
     /* end-test-code */
 
+
     return api;
-};
+}
 
 module.exports = ScrapingHub;

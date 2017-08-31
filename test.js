@@ -1,0 +1,1 @@
+var scapi = require('./build/node-scrapinghubapi');
