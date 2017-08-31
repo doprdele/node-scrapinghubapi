@@ -15,7 +15,7 @@ function ScrapingHub(apiKey, projectName) {
 
     const baseUrl = 'https://app.scrapinghub.com/api';
     const listJobsUrl = `${baseUrl}/jobs/list.json`;
-    const listScheduleUrl = `${baseUrl}/v2/projects/${projectName}/periodicjobs`;
+    const listPeriodicJobsUrl = `${baseUrl}/v2/projects/${projectName}/periodicjobs`;
 
     function _get(url, callback, attributes = {}) {
         let options = {
@@ -47,16 +47,16 @@ function ScrapingHub(apiKey, projectName) {
         return _get(listJobsUrl, callback, attributes);
     }
 
-    function listSchedule(callback, attributes = {}) {
-        return _get(listScheduleUrl, callback, attributes);
+    function listPeriodicJobs(callback, attributes = {}) {
+        return _get(listPeriodicJobsUrl, callback, attributes);
     }
 
     let api = {
         jobs: {
             list: listJobs,
         },
-        schedule: {
-            list: listSchedule,
+        periodicjobs: {
+            list: listPeriodicJobs,
         }
     };
 
