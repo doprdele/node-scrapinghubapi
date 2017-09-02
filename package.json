@@ -1,6 +1,6 @@
 {
   "name": "node-scrapinghubapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NodeJS API for ScrapingHub",
   "main": "build/node-scrapinghubapi.js",
   "scripts": {
@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "request": "^2.81.0"
+  },
+  "scripts": {
+    "build": "npm install && grunt"
   },
   "devDependencies": {
     "assert": "^1.4.1",
