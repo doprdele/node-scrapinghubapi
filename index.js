@@ -2,7 +2,7 @@
 
 function ScrapingHub(apiKey, projectName) {
 
-    let request = require('request').defaults({
+    let defaultOptions = {
         auth: {
             user: apiKey,
             pass: '',
@@ -11,7 +11,9 @@ function ScrapingHub(apiKey, projectName) {
             project: projectName,
         },
         json: true,
-    });
+    };
+
+    let request = require('request').defaults(defaultOptions);
 
     const baseUrl = 'https://app.scrapinghub.com/api';
     const listJobsUrl = `${baseUrl}/jobs/list.json`;
@@ -62,7 +64,8 @@ function ScrapingHub(apiKey, projectName) {
 
     /* test-code */
     api._get = _get;
-    api._request = _request;
+    api._request = request;
+    api._options = defaultOptions;
     /* end-test-code */
 
 

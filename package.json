@@ -12,11 +12,15 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
+    "assert": "^1.4.1",
     "babel-preset-es2015": "^6.24.1",
     "grunt": "^1.0.1",
     "grunt-babel": "^7.0.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.0.1",
-    "grunt-strip-code": "^1.0.6"
+    "grunt-strip-code": "^1.0.6",
+    "mocha": "^3.5.0",
+    "proxyquire": "^1.8.0",
+    "sinon": "^3.2.1"
   }
 }
