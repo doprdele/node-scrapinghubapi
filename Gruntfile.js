@@ -4,9 +4,18 @@ grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-babel');
 grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-mocha-test');
+grunt.loadNpmTasks('grunt-contrib-copy');
 
 grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    copy: {
+        main: {
+            expand: true,
+            flatten: true,
+            src: ['build/node-scrapinghubapi.min.js', 'build/sourceMap.map'],
+            dest: 'dist/',
+        },
+    },
     babel: {
         options: {
             'sourceMap': true
@@ -36,7 +45,7 @@ grunt.initConfig({
                 sourceMapName: 'build/sourceMap.map'
             },
             src: 'build/*-compiled.js',
-            dest: 'build/<%= pkg.name %>.js'
+            dest: 'build/<%= pkg.name %>.min.js'
         }
     },
     jshint: {
@@ -50,4 +59,4 @@ grunt.initConfig({
     }
 });
 
-grunt.registerTask('default', ['jshint', 'mochaTest', 'strip_code', 'babel', 'uglify']);
+grunt.registerTask('default', ['jshint', 'mochaTest', 'strip_code', 'babel', 'uglify', 'copy']);
