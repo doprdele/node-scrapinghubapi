@@ -3,6 +3,7 @@ grunt.loadNpmTasks('grunt-strip-code');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-babel');
 grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.loadNpmTasks('grunt-mocha-test');
 
 grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -15,6 +16,17 @@ grunt.initConfig({
                 'src': ['build/<%= pkg.name %>.js'],
                 'dest': 'build/<%= pkg.name %>-compiled.js',
             }]
+        }
+    },
+    mochaTest: {
+        test: {
+            options: {
+                reporter: 'spec',
+                quiet: false, // Optionally suppress output to standard out (defaults to false)
+                clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
+                noFail: false // Optionally set to not fail on failed tests (will still fail on other errors)
+            },
+            src: ['test/*.js']
         }
     },
     uglify: {
@@ -38,4 +50,4 @@ grunt.initConfig({
     }
 });
 
-grunt.registerTask('deploy', ['jshint', 'strip_code', 'babel', 'uglify']);
+grunt.registerTask('default', ['jshint', 'mochaTest', 'strip_code', 'babel', 'uglify']);

@@ -31,7 +31,7 @@ function ScrapingHub(apiKey, projectName) {
                 return;
             }
 
-            if (data.status == 'error') {
+            if (data && data.status == 'error') {
                 callback(new Error(data.message));
                 return;
             }
@@ -46,10 +46,16 @@ function ScrapingHub(apiKey, projectName) {
     }
 
     function listJobs(callback, attributes = {}) {
+        /* test-code */
+        let _get = api._get;
+        /* end-test-code */
         return _get(listJobsUrl, callback, attributes);
     }
 
     function listPeriodicJobs(callback, attributes = {}) {
+        /* test-code */
+        let _get = api._get;
+        /* end-test-code */
         return _get(listPeriodicJobsUrl, callback, attributes);
     }
 
